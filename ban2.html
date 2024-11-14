@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        input[type="text"] {
+            width: 200px;
+        }
+        button {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Введите задачу">
+    <button onclick="addTask()">Добавить</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskText = taskInput.value;
+            if (!taskText) return;
+
+            const li = document.createElement("li");
+            li.textContent = taskText;
+
+            const editButton = document.createElement("button");
+            editButton.textContent = "Редактировать";
+            editButton.onclick = () => editTask(li);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Удалить";
+            deleteButton.onclick = () => deleteTask(li);
+
+            li.appendChild(editButton);
+            li.appendChild(deleteButton);
+            document.getElementById("taskList").appendChild(li);
+            taskInput.value = "";
+        }
+
+        function editTask(li) {
+            const currentText = li.firstChild.textContent;
+            const newText = prompt("Редактировать задачу", currentText);
+            if (newText) {
+                li.firstChild.textContent = newText;
+            }
+        }
+
+        function deleteTask(li) {
+            li.remove();
+        }
+    </script>
+</body>
+</html>
